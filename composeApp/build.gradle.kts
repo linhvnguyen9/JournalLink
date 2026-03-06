@@ -92,3 +92,9 @@ room {
     schemaDirectory("$projectDir/schemas")
 }
 
+// Ensure Room KSP generates actual declarations before iOS compilation
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>().configureEach {
+    val kspTaskName = name.replace("compileKotlin", "kspKotlin")
+    dependsOn(tasks.named(kspTaskName))
+}
+
