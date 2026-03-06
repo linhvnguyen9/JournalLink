@@ -1,12 +1,9 @@
 package com.linh.journal
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.linh.journal.data.dao.JournalDao
 import com.linh.journal.data.entity.JournalEntry
-import kotlin.reflect.KClass
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -61,13 +58,4 @@ class JournalViewModel(private val dao: JournalDao) : ViewModel() {
         dismissDialog()
     }
 
-    companion object {
-        fun factory(dao: JournalDao): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-                    return JournalViewModel(dao) as T
-                }
-            }
-    }
 }

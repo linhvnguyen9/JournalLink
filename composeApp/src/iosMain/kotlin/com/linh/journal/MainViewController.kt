@@ -1,10 +1,12 @@
 package com.linh.journal
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.linh.journal.data.getDatabaseBuilder
-import com.linh.journal.data.getRoomDatabase
+import com.linh.journal.di.initKoin
+import com.linh.journal.di.platformModule
 
-fun MainViewController() = ComposeUIViewController {
-    val db = getRoomDatabase(getDatabaseBuilder())
-    App(dao = db.journalDao())
+fun MainViewController() = run {
+    initKoin {
+        modules(platformModule)
+    }
+    ComposeUIViewController { App() }
 }
