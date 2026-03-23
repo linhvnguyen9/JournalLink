@@ -4,18 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.linh.journal.data.getDatabaseBuilder
-import com.linh.journal.data.getRoomDatabase
+import com.linh.journal.di.initKoin
+import com.linh.journal.di.platformModule
+import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val db = getRoomDatabase(getDatabaseBuilder(this))
+        initKoin {
+            androidContext(this@MainActivity)
+            modules(platformModule)
+        }
 
         setContent {
-            App(dao = db.journalDao())
+            App()
         }
     }
 }

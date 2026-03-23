@@ -26,14 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.linh.journal.data.dao.JournalDao
 import com.linh.journal.data.entity.JournalEntry
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(dao: JournalDao) {
-    val vm: JournalViewModel = viewModel(factory = JournalViewModel.factory(dao))
+fun App() {
+    val vm: JournalViewModel = koinViewModel()
     val entries by vm.entries.collectAsStateWithLifecycle()
     val dialogState by vm.dialogState.collectAsStateWithLifecycle()
 
