@@ -33,6 +33,10 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.junit)
+            implementation(libs.robolectric)
+            implementation(libs.androidx.test.core)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -52,6 +56,11 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.androidx.sqlite.bundled)
+        }
+        androidNativeTest.dependencies {
+            implementation(libs.robolectric)
+            implementation(libs.androidx.test.core)
         }
     }
 }
@@ -88,6 +97,9 @@ dependencies {
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspAndroidTest", libs.androidx.room.compiler)
+    add("kspIosArm64Test", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64Test", libs.androidx.room.compiler)
 }
 
 room {
@@ -95,7 +107,7 @@ room {
 }
 
 afterEvaluate {
-    tasks.withType<KspAATask>().matching { !it.name.contains("Test") }.configureEach {
+    tasks.withType<KspAATask>().matching { it.name.contains("Ios") }.configureEach {
         setOnlyIf(Specs.satisfyAll())
     }
 }
