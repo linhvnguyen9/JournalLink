@@ -62,6 +62,11 @@ kotlin {
             implementation(libs.robolectric)
             implementation(libs.androidx.test.core)
         }
+        androidUnitTest.dependencies {
+            implementation(libs.junit)
+            implementation(libs.robolectric)
+            implementation(libs.androidx.test.core)
+        }
     }
 }
 
@@ -89,6 +94,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+    lint {
+        disable += "NotificationPermission"
     }
 }
 
